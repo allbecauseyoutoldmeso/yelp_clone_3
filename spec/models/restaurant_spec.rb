@@ -20,4 +20,10 @@ describe Restaurant, type: :model do
     expect(restaurant).to have(1).error_on(:name)
   end
 
+  context 'associations' do
+    it 'should have one to many association with user' do
+      should belong_to(:user)
+    end
+  end
+
 end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 feature 'Restaurants' do
+  
   before do
     User.create(email: "user@name.com", password: 'password', password_confirmation: 'password')
     visit '/'
