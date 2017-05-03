@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Restaurants' do
-  
+
   before do
     User.create(email: "user@name.com", password: 'password', password_confirmation: 'password')
     visit '/'
@@ -105,6 +105,19 @@ feature 'Restaurants' do
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
+    end
+    scenario 'user can only delete a restaurant they created' do
+      click_link 'Sign out'
+      User.create(email: "anotheruser@name.com", password: 'password', password_confirmation: 'password')
+      visit '/'
+      click_link 'Sign in'
+      fill_in 'Email', with: "anotheruser@name.com"
+      fill_in 'Password', with: 'password'
+      click_button 'Log in'
+      visit '/restaurants'
+      click_link 'Delete KFC'
+      expect(page).to have_content 'KFC'
+      expect(page).not_to have_content 'Restaurant deleted successfully'
     end
   end
 
