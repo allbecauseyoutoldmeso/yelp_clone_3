@@ -43,4 +43,16 @@ describe Restaurant, type: :model do
     end
   end
 
+  describe '#average rating' do
+    it 'returns average rating' do
+      user = User.first
+      restaurant = user.restaurants.create(name: 'Cat\'s pyjamas')
+      user_2 = User.create(email: "second_user@name.com", password: 'password', password_confirmation: 'password')
+      restaurant.reviews.create(rating: 1, user: user_2)
+      user_3 = User.create(email: "third_user@name.com", password: 'password', password_confirmation: 'password')
+      restaurant.reviews.create(rating: 5, user: user_3)
+      expect(restaurant.average_rating).to eq 3
+    end
+  end
+
 end
