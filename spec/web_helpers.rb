@@ -3,6 +3,7 @@ def create_user(email)
 end
 
 def sign_in(email)
+  visit '/'
   click_link 'Sign in'
   fill_in 'Email', with: email
   fill_in 'Password', with: 'password'
@@ -10,6 +11,7 @@ def sign_in(email)
 end
 
 def leave_review(thoughts, rating)
+  visit '/restaurants'
   click_link 'Review KFC'
   fill_in 'Thoughts', with: thoughts
   select rating, from: 'Rating'
