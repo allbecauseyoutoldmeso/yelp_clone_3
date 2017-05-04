@@ -7,10 +7,11 @@ describe User, type: :model do
       should have_many(:restaurants)
     end
     it 'should have many reviewed restaurants' do
-       is_expected.to have_many :reviewed_restaurants
-    end 
+      should have_many :reviewed_restaurants
+    end
+    it 'should have many reviews' do
+      should have_many :reviews
+    end
   end
-
-
 
 end
