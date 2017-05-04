@@ -5,9 +5,10 @@ feature 'reviewing' do
     User.create(email: "user@name.com", password: 'password', password_confirmation: 'password')
     user = User.first
     user.restaurants.create(name: 'KFC')
+    User.create(email: "anotheruser@name.com", password: 'password', password_confirmation: 'password')
     visit '/'
     click_link 'Sign in'
-    fill_in 'Email', with: "user@name.com"
+    fill_in 'Email', with: "anotheruser@name.com"
     fill_in 'Password', with: 'password'
     click_button 'Log in'
   end
