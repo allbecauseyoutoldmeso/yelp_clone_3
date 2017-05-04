@@ -4,6 +4,8 @@
   - restaurant.reviews.each do |review|
    %p= review.thoughts
    %p= "Average rating: #{restaurant.average_rating.to_i}"
+   %p= pluralize review.endorsements.count, 'endorsement'
+   %p= link_to "Endorse Review", new_review_endorsement_path(review)
   - if current_user
    - if restaurant.user == current_user
     %h2= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant)
