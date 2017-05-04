@@ -3,8 +3,7 @@ require 'rails_helper'
 feature 'reviewing' do
   before do
     create_user("user@name.com")
-    user = User.first
-    user.restaurants.create(name: 'KFC')
+    create_restaurant('KFC', 'greasy')
     create_user("anotheruser@name.com")
     sign_in("anotheruser@name.com")
   end

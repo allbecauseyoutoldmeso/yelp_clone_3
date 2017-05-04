@@ -16,12 +16,8 @@ feature 'user can sign in and out' do
 
   context 'user signed in' do
     before do
-      visit '/'
-      click_link 'Sign up'
-      fill_in 'Email', with: 'test@test.com'
-      fill_in 'Password', with: '123456'
-      fill_in 'Password confirmation', with: '123456'
-      click_button 'Sign up'
+      create_user('kate@kate.com')
+      sign_in('kate@kate.com')
     end
     it 'should see sign out link' do
       visit '/'

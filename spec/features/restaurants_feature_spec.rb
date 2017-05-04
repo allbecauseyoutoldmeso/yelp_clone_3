@@ -18,8 +18,6 @@ feature 'Restaurants' do
   context 'restaurants have been added' do
     before do
       create_restaurant('KFC', 'nice')
-      # user = User.first
-      # user.restaurants.create(name: 'KFC')
     end
 
     scenario 'display restaurants' do
@@ -56,8 +54,7 @@ feature 'Restaurants' do
 
   context 'viewing restaurants' do
     before do
-      user = User.first
-      user.restaurants.create(name: 'KFC')
+      create_restaurant('KFC', 'nice')
     end
 
     scenario 'lets a user view a restaurant' do
@@ -70,8 +67,7 @@ feature 'Restaurants' do
 
   context 'editing restaurants' do
     before do
-      user = User.first
-      user.restaurants.create(name: 'KFC', description: 'deep fried goodness')
+      create_restaurant('KFC', 'so so')
     end
     scenario 'let a user edit a restaurant' do
       visit '/restaurants'
@@ -88,8 +84,7 @@ feature 'Restaurants' do
 
   context 'deleting restaurants' do
     before do
-      user = User.first
-      user.restaurants.create(name: 'KFC')
+      create_restaurant('KFC', 'nice')
     end
     scenario 'removes the restaurant when user clicks delete link' do
       visit '/restaurants'
@@ -97,19 +92,6 @@ feature 'Restaurants' do
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
-    # scenario 'user can only delete a restaurant they created' do
-    #   click_link 'Sign out'
-    #   User.create(email: "anotheruser@name.com", password: 'password', password_confirmation: 'password')
-    #   visit '/'
-    #   click_link 'Sign in'
-    #   fill_in 'Email', with: "anotheruser@name.com"
-    #   fill_in 'Password', with: 'password'
-    #   click_button 'Log in'
-    #   visit '/restaurants'
-    #   click_link 'Delete KFC'
-    #   expect(page).to have_content 'KFC'
-    #   expect(page).not_to have_content 'Restaurant deleted successfully'
-    # end
   end
 
 end
