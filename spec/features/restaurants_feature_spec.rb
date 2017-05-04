@@ -3,12 +3,8 @@ require 'rails_helper'
 feature 'Restaurants' do
 
   before do
-    User.create(email: "user@name.com", password: 'password', password_confirmation: 'password')
-    visit '/'
-    click_link 'Sign in'
-    fill_in 'Email', with: "user@name.com"
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+    create_user("user@name.com")
+    sign_in("user@name.com")
   end
 
   context 'no restaurants have been added' do
@@ -21,8 +17,9 @@ feature 'Restaurants' do
 
   context 'restaurants have been added' do
     before do
-      user = User.first
-      user.restaurants.create(name: 'KFC')
+      create_restaurant('KFC', 'nice')
+      # user = User.first
+      # user.restaurants.create(name: 'KFC')
     end
 
     scenario 'display restaurants' do
@@ -34,20 +31,14 @@ feature 'Restaurants' do
 
   context 'creating restaurants' do
     scenario 'prompt user to fill out a form, then displays the new restaurant' do
-      visit '/restaurants'
-      click_link 'Add a restaurant'
-      fill_in 'Name', with: 'KFC'
-      click_button 'Create Restaurant'
+      add_restaurant('KFC')
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
     end
 
     context 'an invalid restaurant' do
       scenario 'does not let you submit a name that is too short' do
-        visit '/restaurants'
-        click_link 'Add a restaurant'
-        fill_in 'Name', with: 'KF'
-        click_button 'Create Restaurant'
+        add_restaurant('KF')
         expect(page).not_to have_css 'h2', text: 'KF'
         expect(page).to have_content 'error'
       end
@@ -93,21 +84,6 @@ feature 'Restaurants' do
       expect(page).to have_content 'deep fried goodness'
       expect(current_path).to eq "/restaurants/#{Restaurant.last.id}"
     end
-    # scenario 'user can only edit own restaurant' do
-    #   click_link 'Sign out'
-    #   User.create(email: "anotheruser@name.com", password: 'password', password_confirmation: 'password')
-    #   visit '/'
-    #   click_link 'Sign in'
-    #   fill_in 'Email', with: "anotheruser@name.com"
-    #   fill_in 'Password', with: 'password'
-    #   click_button 'Log in'
-    #   visit '/restaurants'
-    #   click_link 'Edit KFC'
-    #   fill_in 'Description', with: 'but bad for your heart'
-    #   click_button 'Update Restaurant'
-    #   click_link 'KFC'
-    #   expect(page).not_to have_content 'but bad for your heart'
-    # end
   end
 
   context 'deleting restaurants' do
