@@ -29,3 +29,11 @@ def leave_review(thoughts, rating)
   select rating, from: 'Rating'
   click_button 'Leave Review'
 end
+
+def edit_restaurant(old_name, new_name, new_description)
+  visit '/restaurants'
+  click_link "Edit #{old_name}"
+  fill_in 'Name', with: new_name
+  fill_in 'Description', with: new_description
+  click_button 'Update Restaurant'
+end

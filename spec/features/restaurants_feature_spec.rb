@@ -70,11 +70,12 @@ feature 'Restaurants' do
       create_restaurant('KFC', 'so so')
     end
     scenario 'let a user edit a restaurant' do
-      visit '/restaurants'
-      click_link 'Edit KFC'
-      fill_in 'Name', with: 'Kentucky Fried Chicken'
-      fill_in 'Description', with: 'deep fried goodness'
-      click_button 'Update Restaurant'
+      edit_restaurant('KFC', 'Kentucky Fried Chicken', 'deep fried goodness')
+      # visit '/restaurants'
+      # click_link 'Edit KFC'
+      # fill_in 'Name', with: 'Kentucky Fried Chicken'
+      # fill_in 'Description', with: 'deep fried goodness'
+      # click_button 'Update Restaurant'
       click_link 'Kentucky Fried Chicken'
       expect(page).to have_content 'Kentucky Fried Chicken'
       expect(page).to have_content 'deep fried goodness'
