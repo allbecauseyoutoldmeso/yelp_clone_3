@@ -1,17 +1,18 @@
 - if @restaurants.any?
  - @restaurants.each do |restaurant|
-  %h2= link_to restaurant.name, restaurant_path(restaurant)
+  %p= link_to restaurant.name, restaurant_path(restaurant)
   - restaurant.reviews.each do |review|
    %p= review.thoughts
    %p= "Average rating: #{restaurant.average_rating.to_i}"
    %p= pluralize review.endorsements.count, 'endorsement'
-   %p= link_to "Endorse Review", new_review_endorsement_path(review)
+   - if current_user && current_user != review.user && current_user != restaurant.user
+    %p= link_to "Endorse Review", new_review_endorsement_path(review)
   - if current_user
    - if restaurant.user == current_user
-    %h2= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant)
-    %h2= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete
+    %p= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant)
+    %p= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete
    - unless current_user.has_reviewed?(restaurant) || restaurant.user == current_user
-    %h2= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
+    %p= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
 - else
- %h1 No restaurants yet
+ %p No restaurants yet
 %a(href='/restaurants/new') Add a restaurant
